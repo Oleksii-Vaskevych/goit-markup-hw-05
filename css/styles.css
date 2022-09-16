@@ -132,6 +132,10 @@ a.link {
 .link {
   text-decoration: none;
   display: block;
+
+  transition-property: color, background-color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .address-items .link {
@@ -166,8 +170,29 @@ a.link {
   color: #757575;
 }
 
+.item {
+  position: relative;
+}
+
 .current .link {
   color: var(--accent-color);
+}
+
+.item.current .link::after {
+  position: absolute;
+
+  display: inline-block;
+
+  content: "";
+
+  width: 100%;
+  height: 4px;
+
+  bottom: -1px;
+  left: 0;
+
+  background: var(--accent-color);
+  border-radius: 2px;
 }
 
 ul {
@@ -267,6 +292,10 @@ button {
   background: #f5f4fa;
   border-radius: 4px;
   padding: 6px 22px;
+
+  transition-property: color, background-color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button-hero {
@@ -284,6 +313,10 @@ button {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   color: var(--button-text-color);
+
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button:hover,
@@ -299,8 +332,6 @@ button {
 
 .button-hero:active {
   background: #188ce8;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
 }
 
 /*------------- БЛОК 1 -------------*/
@@ -398,15 +429,43 @@ button {
   flex-wrap: wrap;
 }
 
-.wokr-lst-item {
+.wokr-list-item {
   display: flex;
   margin-right: 30px;
 }
 
-.wokr-lst-item:nth-child(3n) {
+.wokr-list-item:nth-child(3n) {
   margin-right: 0;
 }
 
+.wokr-list-thumb {
+  position: relative;
+}
+
+.tex-wokr-list-item {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+.team-name-box {
+  position: absolute;
+
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(47, 48, 58, 0.8);
+}
 /* .work-pictures {} */
 
 /*------------- БЛОК 3 -------------*/
@@ -536,8 +595,41 @@ button {
 }
 
 .gallery-icon {
-  display: inline-block;
+  position: relative;
+  display: block;
   border: 1px solid #eeeeee;
+}
+
+.gallary-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallary-effect-tex {
+  position: absolute;
+
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 63px 24px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+
+  letter-spacing: 0.03em;
+
+  color: #ffffff;
+
+  background-color: rgba(33, 150, 243, 0.9);
+
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-icon:hover .gallary-effect-tex,
+.gallery-icon:focus .gallary-effect-tex {
+  transform: translateY(0);
 }
 
 /* Фіксований розмір */
@@ -630,12 +722,15 @@ button {
   border-radius: 4px;
 
   fill: #afb1b8;
+
+  transition-property: fill, background-color, border;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .client-linc-icon:hover,
 .client-linc-icon:focus {
   border: 1px solid var(--accent-color);
-  border-radius: 4px;
 }
 
 .client-linc-icon:focus,
@@ -681,6 +776,10 @@ address {
   letter-spacing: 0.03em;
 
   color: #ffffff;
+
+  transition-property: color, background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .address-contacts .link {
@@ -756,6 +855,10 @@ address {
   border-radius: 50%;
 
   fill: #afb1b8;
+
+  transition-property: fill, background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-icon-item {
@@ -768,6 +871,10 @@ address {
 
 .linc-icon.bot {
   background: rgba(255, 255, 255, 0.1);
+
+  transition-property: background;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-icon {
@@ -814,4 +921,67 @@ address {
   color: #ffffff;
 
   margin-bottom: 20px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(47, 48, 58, 0.5);
+
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(2);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 528px;
+  height: 581px;
+  padding: 10px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  padding: 0;
+
+  color: #000000;
+
+  font-size: 18px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
